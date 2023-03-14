@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FormPage extends CommonActionOnPages{
@@ -27,11 +28,19 @@ public class FormPage extends CommonActionOnPages{
     private final By state = By.id("react-select-3-input");
     private final By city = By.id("react-select-4-input");
     private final By submit = By.id("submit");
+    private final By form =By.xpath("//div[@class='card mt-4 top-card'][2]");
+    private final By practiceForm =By.xpath("(//span[text()='Practice Form'])");
+    private final By tablaby = By.xpath("//table/tbody");
+
 
     private Estudiante estudiante;
     public FormPage(WebDriver driver, Estudiante estudiante) {
         super(driver);
         this.estudiante = estudiante;
+    }
+
+    public FormPage(WebDriver driver) {
+        super(driver);
     }
 
     public void fillMandatoryFields() {
@@ -48,8 +57,13 @@ public class FormPage extends CommonActionOnPages{
         enter(subject);
         typeInto(subject, estudiante.getSubject().get(1));
         enter(subject);
-        space(sports);
-        space(music);
+        for (int i = 0; i < estudiante.hobbies.size(); i++) {
+            switch (estudiante.hobbies.get(i)) {
+                case MUSIC -> space(music);
+                case SPORTS -> space(sports);
+                case READING -> space(reading);
+            }
+        }
         typeInto(address, estudiante.getCurrentAddress());
         typeInto(state, estudiante.getState());
         enter(state);
@@ -58,30 +72,11 @@ public class FormPage extends CommonActionOnPages{
         space(submit);
     }
 
-//    public void fillMandatoryFields() {
-//        setZoom(70);
-//        clearText(name);
-//        typeInto(name, "Juanes");
-//        typeInto(lastname, "Jhonson");
-//        typeInto(email, "j.cardona1@gmail.com");
-//        space(genderMale);
-//        typeInto(number, "3215854785");
-//        space(dateofbirth);
-//        setDate(dateofbirth, "20 Feb 2020");
-//        typeInto(subject, "Math");
-//        enter(subject);
-//        typeInto(subject, "Arts");
-//        enter(subject);
-//        space(sports);
-//        space(music);
-//        typeInto(address, "Calle 32 no 4-51");
-//        typeInto(state, "NCR");
-//        enter(state);
-//        typeInto(city, "Delhi");
-//        enter(city);
-//        space(submit);
-//    }
-
+    public void goToForm() {
+        scrollTo(form);
+        click(form);
+        click(practiceForm);
+    }
 
 }
 

@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static com.google.common.base.StandardSystemProperty.USER_DIR;
-import static com.sofkau.setup.ConstantSetup.*;
+
 import static com.sofkau.util.Log4j.LOG4J_PROPERTIES_FILE_PATH;
 
 public class WebUi {
@@ -22,19 +22,21 @@ public class WebUi {
 
     }
 
-    private void setUpWebdriverUrl() {
+    private void setUpWebdriverUrl(String URL) {
         ChromeOptions co = new ChromeOptions();
         co.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(co);
-        driver.get(DEMO_QA_URL);
+        driver.get(URL);
         maximize();
     }
 
-    protected void generalSetUp() {
+    protected void generalSetUp(String URL) {
         setUplog4j();
         setUpWebdriver();
-        setUpWebdriverUrl();
+        setUpWebdriverUrl(URL);
     }
+
+
 
     protected void quitDriver(){
         driver.quit();

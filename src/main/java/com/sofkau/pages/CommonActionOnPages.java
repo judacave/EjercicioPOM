@@ -33,6 +33,11 @@ public class CommonActionOnPages {
         driver.findElement(locator).sendKeys(Keys.ENTER);
     }
 
+    public void scrollTo(By locator){
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].scrollIntoView();", driver.findElement(locator));
+    }
+
     protected void setDate (By locator, String fecha) {
         driver.findElement(locator).sendKeys(Keys.chord(Keys.CONTROL, "a"), fecha, Keys.ENTER);
     }
